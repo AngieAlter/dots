@@ -1,0 +1,25 @@
+// ────────────── Startup Applications ──────────────
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#spawn-sh-at-startup
+
+    //spawn-sh-at-startup "qs -c noctalia-shell"
+    spawn-at-startup "noctalia"
+
+    spawn-at-startup "xwayland-satellite"
+    spawn-at-startup "/usr/lib/pam_kwallet_init" // kde slop
+
+    // my silly apps
+    spawn-at-startup "discord"
+    spawn-sh-at-startup "spotify --audio-api=pulseaudio"
+    spawn-at-startup "steam"
+    spawn-at-startup "zen-browser"
+
+    //Cachy Update Tray
+    spawn-sh-at-startup "arch-update --tray"
+
+    // Kill the malware
+    spawn-sh-at-startup "pkill kded6"
+
+    // Docker
+    spawn-sh-at-startup "docker compose -f /media/ssdlinux1/Github/portainer-compose.yaml up -d"
+
+

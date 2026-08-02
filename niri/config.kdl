@@ -1,0 +1,26 @@
+include "./cfg/animation.kdl"
+include "./cfg/autostart.kdl"
+include "./cfg/keybinds.kdl"
+include "./cfg/input.kdl"
+include "./cfg/display.kdl"
+include "./cfg/layout.kdl"
+include "./cfg/rules.kdl"
+include "./cfg/misc.kdl"
+
+include "./noctalia.kdl"
+
+workspace "main" {
+	open-on-output "HDMI-A-2"
+}
+workspace "terminal" {
+	open-on-output "HDMI-A-2"
+}
+
+
+workspace "1-2" {
+	open-on-output "HDMI-A-1"
+}
+
+workspace "2-2" {
+	open-on-output "HDMI-A-1"
+}
