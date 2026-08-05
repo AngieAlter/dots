@@ -1,4 +1,4 @@
-config_version = 10
+config_version = 8
 
 [bar]
 order = [ "default" ]
