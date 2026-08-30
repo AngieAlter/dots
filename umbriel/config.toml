@@ -1,0 +1,418 @@
+# Umbriel example config
+# Copy to ~/.config/umbriel/config.toml or pass with `umbriel -c example.toml`.
+# Changes apply on save. See docs/ for the full reference.
+
+[include]
+files = ["noctalia.toml"]
+
+[general]
+autostart = [
+  "discord", 
+  "steam", 
+  "arch-update --tray", 
+  "spotify --audio-api=pulseaudio", 
+  "/usr/lib/pam_kwallet_init", 
+  "noctalia", 
+  "sleep 5 && zen-browser", 
+  "obsidian"
+]
+
+xwayland = true                # requires restart to change
+show_cheatsheet = false         # show keybinds overlay on startup
+focus_on_activate = true      # activation requests mark urgent without stealing focus
+
+[environment]
+ELECTRON_OZONE_PLATFORM_HINT = "auto"
+QT_QPA_PLATFORMTHEME = "gtk3"
+QT_QPA_PLATFORM = "wayland"
+
+
+
+
+[workspaces]
+back_and_forth = true
+
+# Colors ---------------------------------------------------------------------
+
+[colors]
+#background = "#141419F0"
+#text_primary = "#E8E8EAFF"
+#text_muted = "#8A8A92FF"
+#accent_primary = "#7AA3FFFF"
+#accent_secondary = "#F5C96BFF"
+#warning = "#F5C96BFF"
+#error = "#FF6B6BFF"
+
+# Appearance -----------------------------------------------------------------
+
+[appearance]
+prefer_no_csd = true
+border_width = 2               # 0-100
+outer_border_width = 0         # 0-100
+corner_radius = 6              # 0-500
+#border_focused = "#880808"
+#border_unfocused = "#292933FF"
+#scratchpad_border_focused = "#E5C07BFF"
+#scratchpad_border_unfocused = "#5C4A2AFF"
+#outer_border_color = "#1A1A1FFF"
+#insert_hint_color = "#7FC8FF80"
+#backdrop_color = "#000000FF"
+#animation_ms = 250             # 1-10000
+
+[animation]
+enabled = true
+duration_ms = 250
+curve = "easeout"
+
+[animation.windows_in]
+enabled = true
+duration_ms = 250
+curve = "easeout"
+style = "fade"       # "popin", "zoom", "slide", "fade", or "none"
+scale = 0.85          # 0.1-1.0, used by "popin"
+
+[animation.windows_out]
+enabled = true
+duration_ms = 150
+curve = "easeout"
+style = "fade"        # "fade" or "slide"
+
+[animation.windows_move]
+enabled = true
+duration_ms = 250
+curve = "easeout"
+
+[animation.workspaces]
+enabled = true
+duration_ms = 250
+curve = "easeout"
+
+[animation.overview]
+enabled = true
+duration_ms = 250
+curve = "easeout"
+
+[animation.scratchpad]
+enabled = false
+duration_ms = 250
+curve = "easeout"
+dim = 0.5             # 0.0-1.0
+blur = false          # requires appearance.blur.enabled
+scale = 0.0           # 0 preserves geometry; 0.1-1.0 sizes and centers on entry
+maximize = false      # maximize to edges on entry
+fullscreen = false    # fullscreen on entry
+
+[animation.border]
+enabled = false
+duration_ms = 250
+curve = "easeout"
+
+[animation.dim_unfocused]
+enabled = false
+duration_ms = 250
+curve = "easeout"
+dim = 0.0             # 0.0-1.0
+
+[animation.layers]
+enabled = false
+duration_ms = 250
+curve = "easeout"
+
+[appearance.blur]
+enabled = true
+optimized = true
+passes = 1                     # 0-8
+radius = 1                     # 0-100
+noise = 0.02                   # 0.0-1.0
+#brightness = 0.9               # 0.0-2.0
+#contrast = 0.9                 # 0.0-2.0
+#saturation = 1.1               # 0.0-2.0
+
+[appearance.shadow]
+enabled = true
+softness = 10                  # 0-200, 0 = hard edge
+offset_x = 2                   # -200 to 200
+offset_y = 2
+color = "#0000008C"
+
+# Overview -------------------------------------------------------------------
+
+[overview]
+zoom = 0.5                     # 0.1-0.75
+background_tint = "#10101430"
+workspace_background = "#00000044" # set alpha to FF for an opaque background
+
+# Layout ---------------------------------------------------------------------
+
+[layout]
+mode = "scrolling"             # "scrolling" or "dwindle"
+gap = 3                        # 0-500
+width_presets = [0.333333, 0.5, 0.667] # shared by scrolling and dwindle
+
+[layout.scrolling]
+default_width_fraction = 0.49   # 0.1-1.0
+center_underfull_strip = true  # center the strip whenever it is narrower than the viewport
+expand_single_column = true  
+
+# Workspace layout overrides (see docs/outputs.md#workspace-rules)
+# [[workspace]]
+# name = "chat"
+# layout.mode = "dwindle"
+# layout.gap = 4
+# layout.scrolling.center_underfull_strip = false
+
+[hot_corners.top_left]
+enabled = true
+delay_ms = 50
+action = "overview-toggle"
+
+# Outputs (see docs/outputs.md) ---------------------------------------------
+
+[output."HDMI-A-2"]
+mode = "1920x1080@144"
+position = [0, 0]
+scale = 1
+workspaces = 9
+
+[output."HDMI-A-1"]
+mode = "1920x1080@144"
+position = [-1920, 0]
+scale = 1
+
+# Input ----------------------------------------------------------------------
+
+[input.keyboard]
+layout = "us"                    # "us,de" loads both; switch with keyboard-layout-next
+variant = ""
+options = ""                   # XKB options, e.g. "grp:alt_shift_toggle"
+repeat_rate = 25               # 0-1000 Hz
+repeat_delay = 600             # 0-10000 ms
+
+[input.touchpad]
+# tap = true
+# natural_scroll = true
+
+[input.mouse]
+scroll_wheel_step = 60         # 1-1000
+accel_profile = "flat"
+
+[input.cursor]
+theme = "breeze_cursors"
+size = 24                      # 1-512
+
+[input.focus]
+follows_mouse = true
+# follows_mouse_max_scroll = 0.5
+
+# Keybinds (see docs/keybinds.md) -------------------------------------------
+
+[keybinds]
+"Mod+M" = "session-quit"
+
+# Misc
+"F19" = "spawn:noctalia msg mic-mute"
+"Mod+Alt+N" = "spawn:pkill noctalia && sleep 1 && noctalia --daemon"
+
+"Alt+Tab" = "spawn:noctalia msg window-switcher"
+
+# Apps
+"Mod+Q" = "spawn:kitty"
+"Mod+E" = "spawn:dolphin"
+"Mod+B" = "spawn:zen-browser"
+"Mod+Shift+B" = "spawn:zen-browser --private-window"
+"Mod+X" = "spawn:obsidian"
+
+# Noctalia
+
+"Mod+L" = "spawn:noctalia msg lock-screen"
+"Mod+Space" = "spawn:noctalia msg panel-toggle launcher"
+"Mod+S" = "spawn:noctalia msg panel-toggle control-center"
+"Mod+Shift+Q" = "spawn:noctalia msg panel-toggle session"
+
+"Mod+Shift+1" = "spawn:noctalia msg screenshot-region"
+"Mod+Shift+2" = "spawn:noctalia msg screenshot-fullscreen"
+
+
+# Media Control
+"XF86AudioRaiseVolume" = "spawn:noctalia msg volume-up 5%"
+"XF86AudioLowerVolume" = "spawn:noctalia msg volume-down 5%"
+"XF86AudioMute" = "spawn:noctalia msg volume-mute"
+
+"XF86AudioPlay" = "spawn:noctalia msg media toggle"
+"XF86AudioNext" = "spawn:noctalia msg media next"
+"XF86AudioPrev" = "spawn:noctalia msg media previous"
+
+# Window Control 
+
+"Mod+W" = "window-toggle-floating"
+"Mod+P" = "window-toggle-pinned"
+"Mod+C" = "window-close"
+
+"Mod+Z" = "window-toggle-maximize"
+"Mod+F" = "window-toggle-fullscreen"
+
+# Window movement and view
+
+"Mod+Left" = "window-focus-left"
+"Mod+Right" = "window-focus-right"
+"Mod+Ctrl+Left" = "column-move-left"
+"Mod+Ctrl+Right" = "column-move-right"
+
+"Mod+WheelDown" = "window-focus-right"
+"Mod+WheelUp" = "window-focus-left"
+"Mod+Ctrl+WheelDown" = "column-move-right"
+"Mod+Ctrl+WheelUp" = "column-move-left"
+
+"Mod+Tab" = "overview-toggle"
+"Mod+MouseMiddle" = "overview-toggle"
+
+# Monitors
+
+"Mod+Shift+Left" = "output-focus-left"
+"Mod+Shift+Right" = "output-focus-right"
+
+"Mod+Ctrl+Shift+Left" = "column-move-to-output-left"
+"Mod+Ctrl+Shift+Right" = "column-move-to-output-right"
+
+# Workspace
+
+"Mod+Shift+WheelDown" = "workspace-next"
+"Mod+Shift+WheelUp" = "workspace-previous"
+
+"Mod+Ctrl+Shift+WheelDown" = "window-move-to-workspace-next"
+"Mod+Ctrl+Shift+WheelUp" = "window-move-to-workspace-previous"
+
+"Mod+1" = "workspace-switch:1"
+"Mod+2" = "workspace-switch:2"
+"Mod+3" = "workspace-switch:3"
+"Mod+4" = "workspace-switch:4"
+"Mod+5" = "workspace-switch:5"
+"Mod+6" = "workspace-switch:6"
+"Mod+7" = "workspace-switch:7"
+"Mod+8" = "workspace-switch:8"
+"Mod+9" = "workspace-switch:9"
+
+"Mod+Ctrl+1" = "window-move-to-workspace:1"
+"Mod+Ctrl+2" = 'window-move-to-workspace:2'
+"Mod+Ctrl+3" = 'window-move-to-workspace:3'
+"Mod+Ctrl+4" = 'window-move-to-workspace:4'
+"Mod+Ctrl+5" = 'window-move-to-workspace:5'
+"Mod+Ctrl+6" = 'window-move-to-workspace:6'
+"Mod+Ctrl+7" = 'window-move-to-workspace:7'
+"Mod+Ctrl+8" = 'window-move-to-workspace:8'
+"Mod+Ctrl+9" = 'window-move-to-workspace:9'
+
+
+
+"Mod+Shift+Space" = "window-move-to-scratchpad"
+#"Mod+Space" = "scratchpad-toggle"
+"Mod+Ctrl+Space" = "window-restore-from-scratchpad"
+
+# Window and layer rules (see docs/rules.md) --------------------------------
+
+[[window_rule]]
+blur = true
+
+[[window_rule]]
+match.app_id = "dolphin"
+opacity = 0.93
+
+[[window_rule]]
+match.app_id = "Spotify"
+default_output = "HDMI-A-1"
+opacity = 0.93
+
+[[window_rule]]
+match.app_id = "steam"
+default_output = "HDMI-A-2"
+default_workspace = 3
+
+[[window_rule]]
+match.app_id = "discord"
+default_output = "HDMI-A-1"
+opacity = 0.93
+
+[[window_rule]]
+match.app_id = "obsidian"
+default_output = "HDMI-A-2"
+default_workspace = 5
+default_focused = false
+focus_on_activate = false
+
+[[window_rule]]
+match.app_id = "krita"
+default_workspace = 2
+default_output = "HDMI-A-2"
+default_fullscreen = false
+opacity = 1
+focus_on_activate = true
+
+[[window_rule]]
+match.title = "Sober"
+default_fullscreen = true
+
+# Sober fix, why did roblox made it popups??
+[[window_rule]]
+match.title = "Servers"
+default_floating = true
+
+[[window_rule]]
+match.app_id = "zen"
+default_output = "HDMI-A-2"
+default_workspace = 1
+
+[[window_rule]]
+match.app_id = "^(steam_proton|steam_app.*|overwatch|overwatch\\.exe)$"
+default_fullscreen = true
+default_workspace = 3
+
+# steam floating fix
+[[window_rule]]
+#match.app_id = "steam"
+match.title = "Friends List|Steam"
+default_floating = true
+default_size = [400, 800]
+
+[[window_rule]]
+match.app_id = "^dev.noctalia.Noctalia$"
+default_floating = true
+default_size = [1020, 900]
+
+[[window_rule]]
+match.title = "^notificationtoasts_.+_desktop"
+default_position = { x = 0, y = 0, anchor = "bottom_right" }
+default_focused = false
+default_pinned = true
+
+[[window_rule]]
+match.app_id = "^dev.noctalia.UmbrielSharePicker$"
+default_floating = true
+default_size = [800, 600]
+
+[[window_rule]]
+match.title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$"
+default_floating = true
+default_size = [640, 360]
+default_output = "HDMI-A-2"
+opacity = 1.0
+default_position = { x = 12, y = 12, anchor = "top_right" }
+default_focused = false
+focus_on_activate = false
+default_pinned = true
+
+[[window_rule]]
+match.app_id = "^(Emulator|zenity|xdg-desktop-portal|xdg-desktop-portal-gtk|qalculate-gtk|org\\.pulseaudio\\.pavucontrol)$"
+default_floating = true
+
+# Float common dialogs by title
+[[window_rule]]
+match.title = "^(Open File|Select|Choose a wallpaper|Open Folder|Save As|Library|Choose Where to Download|File Operation Progress|Rename|Copy Files|Move Files|Search Files)"
+default_floating = true
+
+# Layer rules (see docs/rules.md#layer-rules) --------------------------------
+
+[[layer_rule]]
+match.namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
+blur = true
+blur_ignore_alpha = 0.5
+blur_popups = true
