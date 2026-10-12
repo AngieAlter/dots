@@ -31,7 +31,8 @@
         {
             "type": "gpu",
             "key": "│ ├󰍹 ",
-            "keyColor": "green"
+            "keyColor": "green",
+            "format": "NVIDIA GeForce RTX 4060 Trans Edition [Discrete]"
         },
         {
             "type": "memory",

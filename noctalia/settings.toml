@@ -1,4 +1,4 @@
-config_version = 13
+config_version = 14
 
 [bar]
 order = [ "default" ]
@@ -108,9 +108,10 @@ widget_order = [ "desktop-widget-0000000000000003" ]
 [dock]
 background_opacity = 0.4999999888241291
 concave_edge_corners = false
+enabled = true
 icon_size = 30
 launcher_position = "start"
-pinned = [ "spotify", "discord", "steam", "zen", "Krita", "obsidian", "org.audacityteam.Audacity", "blender" ]
+pinned = [ "spotify", "discord", "steam", "zen", "Krita", "obsidian", "org.audacityteam.Audacity", "blender", "sonora" ]
 reserve_space = false
 show_dots = true
 smart_auto_hide = true
@@ -238,6 +239,16 @@ enabled = true
 
 [notification]
 background_opacity = 0.4999999888241291
+filter_order = [ "filter" ]
+
+    [notification.filter.filter]
+    allow_permanent = true
+    bypass_dnd = false
+    enabled = true
+    match = "discord"
+    play_sound = false
+    save_history = true
+    show_toast = true
 
 [osd]
 background_opacity = 0.4999999888241291
@@ -285,7 +296,6 @@ app_icon_color = "primary"
 avatar_path = "/home/meiyu/Downloads/YCHdark_byVanaria_AngieAlter_withoutwatermark.png"
 corner_radius_scale = 0.0
 external_ip_enabled = true
-font_family = "Noto Sans"
 launch_apps_as_systemd_services = true
 niri_overview_type_to_launch_enabled = true
 polkit_agent = true
@@ -293,6 +303,7 @@ screen_time_enabled = true
 settings_show_advanced = true
 show_location = false
 telemetry_enabled = true
+umbriel_overview_type_to_launch_enabled = true
 
     [shell.panel]
     clipboard_placement = "floating"
@@ -302,6 +313,14 @@ telemetry_enabled = true
     session_placement = "floating"
     transparency_mode = "glass"
     wallpaper_placement = "floating"
+
+    [shell.screenshot]
+    annotate = true
+    confirm_region = true
+    directory = "/home/meiyu/Pictures"
+    freeze_screen = false
+    pipe_to_command = true
+    skip_annotate_on_copy_save = true
 
     [[shell.session.actions]]
     action = "lock"
@@ -354,28 +373,28 @@ ram_pct_critical_threshold = 100
 [theme]
 community_palette = "m3-content"
 custom_palette = "black-swan-honkai-star-rail-full-4193473-rb"
-source = "custom"
+source = "wallpaper"
 wallpaper_scheme = "m3-rainbow"
 
     [theme.templates]
     builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "hyprland", "kcolorscheme", "kitty", "niri", "qt", "starship", "umbriel" ]
-    community_ids = [ "spicetify", "zen-browser", "neovim", "obsidian", "discord", "prismlauncher", "yazi" ]
+    community_ids = [ "sonora", "spicetify", "zen-browser", "discord", "neovim", "obsidian", "prismlauncher", "yazi" ]
 
 [wallpaper]
 directory = "/home/meiyu/Pictures/Wallpapers"
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/meiyu/Pictures/Wallpapers/Black.Swan.(Honkai.Star.Rail).full.4193473.jpg"
+    path = "/home/meiyu/Pictures/Wallpapers/Aviators - Shadows of a Halfwolf - ABluSkittle - Shadow of a Halfwolf.png"
 
     [wallpaper.last]
-    path = "/home/meiyu/Pictures/Wallpapers/Black.Swan.(Honkai.Star.Rail).full.4193473.jpg"
+    path = "/home/meiyu/Pictures/Wallpapers/Aviators - Shadows of a Halfwolf - ABluSkittle - Shadow of a Halfwolf.png"
 
     [wallpaper.monitors.HDMI-A-1]
-    path = "/home/meiyu/Pictures/Wallpapers/Black.Swan.(Honkai.Star.Rail).full.4193473.jpg"
+    path = "/home/meiyu/Pictures/Wallpapers/Aviators - Shadows of a Halfwolf - ABluSkittle - Shadow of a Halfwolf.png"
 
     [wallpaper.monitors.HDMI-A-2]
-    path = "/home/meiyu/Pictures/Wallpapers/Black.Swan.(Honkai.Star.Rail).full.4193473.jpg"
+    path = "/home/meiyu/Pictures/Wallpapers/Aviators - Shadows of a Halfwolf - ABluSkittle - Shadow of a Halfwolf.png"
 
 [weather]
 refresh_minutes = 15

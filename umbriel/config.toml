@@ -3,18 +3,24 @@
 # Changes apply on save. See docs/ for the full reference.
 
 [include]
+files = []
+
+[include.optional]
 files = ["noctalia.toml"]
 
 [general]
 autostart = [
-  "discord", 
-  "steam", 
-  "arch-update --tray", 
-  "spotify --audio-api=pulseaudio", 
-  "/usr/lib/pam_kwallet_init", 
-  "noctalia", 
-  "sleep 5 && zen-browser", 
-  "obsidian"
+  #"discord",
+  #"steam",
+  #"arch-update --tray",
+  #"spotify --audio-api=pulseaudio",
+  "/usr/lib/pam_kwallet_init",
+  "sleep 2 && noctalia",
+  #"sleep 5 && zen-browser",
+  #"obsidian",
+  #"sonora",
+  "sleep 5 && discord && arch-update --tray && zen-browser && obsidian && sonora && flatpak run com.boundfire.puppyclicker.desktop"
+
 ]
 
 xwayland = true                # requires restart to change
@@ -23,11 +29,9 @@ focus_on_activate = true      # activation requests mark urgent without stealing
 
 [environment]
 ELECTRON_OZONE_PLATFORM_HINT = "auto"
-QT_QPA_PLATFORMTHEME = "gtk3"
+QT_QPA_PLATFORMTHEME = "qt6ct"
 QT_QPA_PLATFORM = "wayland"
-
-
-
+SDL_VIDEODRIVER = "wayland"
 
 [workspaces]
 back_and_forth = true
@@ -42,6 +46,7 @@ back_and_forth = true
 #accent_secondary = "#F5C96BFF"
 #warning = "#F5C96BFF"
 #error = "#FF6B6BFF"
+#shadow = "#0000008C"
 
 # Appearance -----------------------------------------------------------------
 
@@ -58,6 +63,7 @@ corner_radius = 6              # 0-500
 #insert_hint_color = "#7FC8FF80"
 #backdrop_color = "#000000FF"
 #animation_ms = 250             # 1-10000
+
 
 [animation]
 enabled = true
@@ -133,12 +139,14 @@ enabled = true
 softness = 10                  # 0-200, 0 = hard edge
 offset_x = 2                   # -200 to 200
 offset_y = 2
-color = "#0000008C"
 
 # Overview -------------------------------------------------------------------
 
 [overview]
-zoom = 0.5                     # 0.1-0.75
+zoom = 0.5 # 0.1-0.75
+workspace_wallpaper = false
+
+[colors.overview]
 background_tint = "#10101430"
 workspace_background = "#00000044" # set alpha to FF for an opaque background
 
@@ -147,12 +155,12 @@ workspace_background = "#00000044" # set alpha to FF for an opaque background
 [layout]
 mode = "scrolling"             # "scrolling" or "dwindle"
 gap = 3                        # 0-500
-width_presets = [0.333333, 0.5, 0.667] # shared by scrolling and dwindle
+extent_presets = [0.333, 0.5, 0.667] # shared by scrolling and dwindle
 
 [layout.scrolling]
-default_width_fraction = 0.49   # 0.1-1.0
+default_extent_fraction = 0.49   # 0.1-1.0
 center_underfull_strip = true  # center the strip whenever it is narrower than the viewport
-expand_single_column = true  
+center_focused = "on_overflow"
 
 # Workspace layout overrides (see docs/outputs.md#workspace-rules)
 # [[workspace]]
@@ -168,13 +176,14 @@ action = "overview-toggle"
 
 # Outputs (see docs/outputs.md) ---------------------------------------------
 
-[output."HDMI-A-2"]
+[output."LG Electronics LG ULTRAGEAR 403NTUW1N926"]
 mode = "1920x1080@144"
 position = [0, 0]
 scale = 1
 workspaces = 9
+direct_scanout = true
 
-[output."HDMI-A-1"]
+[output."Xiaomi Corporation P24FBA-RAGL 5438700083084"]
 mode = "1920x1080@144"
 position = [-1920, 0]
 scale = 1
@@ -203,6 +212,10 @@ size = 24                      # 1-512
 [input.focus]
 follows_mouse = true
 # follows_mouse_max_scroll = 0.5
+
+[input.tablet]
+enabled = true
+map_to_output = "HDMI-A-2"
 
 # Keybinds (see docs/keybinds.md) -------------------------------------------
 
@@ -242,7 +255,7 @@ follows_mouse = true
 "XF86AudioNext" = "spawn:noctalia msg media next"
 "XF86AudioPrev" = "spawn:noctalia msg media previous"
 
-# Window Control 
+# Window Control
 
 "Mod+W" = "window-toggle-floating"
 "Mod+P" = "window-toggle-pinned"
@@ -318,7 +331,7 @@ match.app_id = "dolphin"
 opacity = 0.93
 
 [[window_rule]]
-match.app_id = "Spotify"
+match.app_id = "Sonora"
 default_output = "HDMI-A-1"
 opacity = 0.93
 
@@ -348,6 +361,14 @@ opacity = 1
 focus_on_activate = true
 
 [[window_rule]]
+match.app_id = "puppyclicker-electron"
+default_workspace = 6
+default_output = "HDMI-A-2"
+focus_on_activate = false
+default_focused = false
+opacity = 0.93
+
+[[window_rule]]
 match.title = "Sober"
 default_fullscreen = true
 
@@ -371,12 +392,12 @@ default_workspace = 3
 #match.app_id = "steam"
 match.title = "Friends List|Steam"
 default_floating = true
-default_size = [400, 800]
+default_floating_size_px = { width = 400,height = 800 }
 
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
 default_floating = true
-default_size = [1020, 900]
+default_floating_size_px = { width = 1020,height = 900 }
 
 [[window_rule]]
 match.title = "^notificationtoasts_.+_desktop"
@@ -387,12 +408,12 @@ default_pinned = true
 [[window_rule]]
 match.app_id = "^dev.noctalia.UmbrielSharePicker$"
 default_floating = true
-default_size = [800, 600]
+default_floating_size_px = { width = 800,height = 600 }
 
 [[window_rule]]
 match.title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$"
 default_floating = true
-default_size = [640, 360]
+default_floating_size_px = { width = 640, height = 360 }
 default_output = "HDMI-A-2"
 opacity = 1.0
 default_position = { x = 12, y = 12, anchor = "top_right" }
