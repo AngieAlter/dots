@@ -10,16 +10,12 @@ files = ["noctalia.toml"]
 
 [general]
 autostart = [
-  #"discord",
-  #"steam",
-  #"arch-update --tray",
-  #"spotify --audio-api=pulseaudio",
   "/usr/lib/pam_kwallet_init",
-  "sleep 2 && noctalia",
-  #"sleep 5 && zen-browser",
-  #"obsidian",
-  #"sonora",
-  "sleep 5 && discord && arch-update --tray && zen-browser && obsidian && sonora && flatpak run com.boundfire.puppyclicker.desktop"
+  "sleep 1 && noctalia",
+  "sleep 2 && discord && arch-update --tray && flatpak run com.boundfire.puppyclicker.desktop", 
+  "sleep 2 && zen-browser", 
+  "sleep 2 && obsidian",
+  "sleep 2 && sonora"
 
 ]
 
@@ -52,9 +48,9 @@ back_and_forth = true
 
 [appearance]
 prefer_no_csd = true
-border_width = 2               # 0-100
+border_width = 0 # 2              # 0-100
 outer_border_width = 0         # 0-100
-corner_radius = 6              # 0-500
+corner_radius = 0 # 6              # 0-500
 #border_focused = "#880808"
 #border_unfocused = "#292933FF"
 #scratchpad_border_focused = "#E5C07BFF"
@@ -93,6 +89,13 @@ enabled = true
 duration_ms = 250
 curve = "easeout"
 
+#[animation.workspaces]
+#enabled = true
+#style = "reveal"
+#effect = "ghostly-tear"
+#duration_ms = 600
+#curve = "linear"
+
 [animation.overview]
 enabled = true
 duration_ms = 250
@@ -104,9 +107,6 @@ duration_ms = 250
 curve = "easeout"
 dim = 0.5             # 0.0-1.0
 blur = false          # requires appearance.blur.enabled
-scale = 0.0           # 0 preserves geometry; 0.1-1.0 sizes and centers on entry
-maximize = false      # maximize to edges on entry
-fullscreen = false    # fullscreen on entry
 
 [animation.border]
 enabled = false
@@ -126,7 +126,7 @@ curve = "easeout"
 
 [appearance.blur]
 enabled = true
-optimized = true
+optimized = false
 passes = 1                     # 0-8
 radius = 1                     # 0-100
 noise = 0.02                   # 0.0-1.0
@@ -160,7 +160,7 @@ extent_presets = [0.333, 0.5, 0.667] # shared by scrolling and dwindle
 [layout.scrolling]
 default_extent_fraction = 0.49   # 0.1-1.0
 center_underfull_strip = true  # center the strip whenever it is narrower than the viewport
-center_focused = "on_overflow"
+center_focused = "never"
 
 # Workspace layout overrides (see docs/outputs.md#workspace-rules)
 # [[workspace]]
@@ -187,6 +187,8 @@ direct_scanout = true
 mode = "1920x1080@144"
 position = [-1920, 0]
 scale = 1
+#workspace_axis = "horizontal"
+
 
 # Input ----------------------------------------------------------------------
 
@@ -268,6 +270,8 @@ map_to_output = "HDMI-A-2"
 
 "Mod+Left" = "window-focus-left"
 "Mod+Right" = "window-focus-right"
+"Mod+Up" = "window-focus-up"
+"Mod+Down" = "window-focus-down"
 "Mod+Ctrl+Left" = "column-move-left"
 "Mod+Ctrl+Right" = "column-move-right"
 
@@ -295,6 +299,9 @@ map_to_output = "HDMI-A-2"
 "Mod+Ctrl+Shift+WheelDown" = "window-move-to-workspace-next"
 "Mod+Ctrl+Shift+WheelUp" = "window-move-to-workspace-previous"
 
+"Mod+Alt+1" = "workspace-set-layout:scrolling"
+"Mod+Alt+2" = "workspace-set-layout:dwindle"
+
 "Mod+1" = "workspace-switch:1"
 "Mod+2" = "workspace-switch:2"
 "Mod+3" = "workspace-switch:3"
@@ -318,7 +325,7 @@ map_to_output = "HDMI-A-2"
 
 
 "Mod+Shift+Space" = "window-move-to-scratchpad"
-#"Mod+Space" = "scratchpad-toggle"
+"Ctrl+Tab" = "scratchpad-toggle"
 "Mod+Ctrl+Space" = "window-restore-from-scratchpad"
 
 # Window and layer rules (see docs/rules.md) --------------------------------
@@ -328,22 +335,23 @@ blur = true
 
 [[window_rule]]
 match.app_id = "dolphin"
-opacity = 0.93
+blur_popups = true
+blur_optimized = false
 
 [[window_rule]]
-match.app_id = "Sonora"
+match.app_id = "sonora"
 default_output = "HDMI-A-1"
-opacity = 0.93
 
 [[window_rule]]
 match.app_id = "steam"
 default_output = "HDMI-A-2"
 default_workspace = 3
+focus_on_activate = false
+default_focused = false
 
 [[window_rule]]
 match.app_id = "discord"
 default_output = "HDMI-A-1"
-opacity = 0.93
 
 [[window_rule]]
 match.app_id = "obsidian"
@@ -353,29 +361,15 @@ default_focused = false
 focus_on_activate = false
 
 [[window_rule]]
-match.app_id = "krita"
-default_workspace = 2
-default_output = "HDMI-A-2"
-default_fullscreen = false
-opacity = 1
-focus_on_activate = true
-
-[[window_rule]]
 match.app_id = "puppyclicker-electron"
 default_workspace = 6
 default_output = "HDMI-A-2"
 focus_on_activate = false
 default_focused = false
-opacity = 0.93
 
 [[window_rule]]
 match.title = "Sober"
 default_fullscreen = true
-
-# Sober fix, why did roblox made it popups??
-[[window_rule]]
-match.title = "Servers"
-default_floating = true
 
 [[window_rule]]
 match.app_id = "zen"
@@ -422,13 +416,27 @@ focus_on_activate = false
 default_pinned = true
 
 [[window_rule]]
-match.app_id = "^(Emulator|zenity|xdg-desktop-portal|xdg-desktop-portal-gtk|qalculate-gtk|org\\.pulseaudio\\.pavucontrol)$"
+match.app_id = "^(Emulator|zenity|Servers|xdg-desktop-portal|xdg-desktop-portal-gtk|qalculate-gtk|org\\.pulseaudio\\.pavucontrol)$"
 default_floating = true
 
 # Float common dialogs by title
 [[window_rule]]
 match.title = "^(Open File|Select|Choose a wallpaper|Open Folder|Save As|Library|Choose Where to Download|File Operation Progress|Rename|Copy Files|Move Files|Search Files)"
 default_floating = true
+opacity = 0.90
+blur_optimized = false
+
+[[window_rule]]
+match.app_id = "krita|^blender"
+default_workspace = 2
+default_output = "HDMI-A-2"
+default_maximize = true
+focus_on_activate = true
+opacity = 1
+
+[[window_rule]]
+match.app_id = "dolphin|sonora|discord|puppyclicker*"
+opacity = 0.98
 
 # Layer rules (see docs/rules.md#layer-rules) --------------------------------
 
@@ -437,3 +445,7 @@ match.namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|os
 blur = true
 blur_ignore_alpha = 0.5
 blur_popups = true
+
+# Security rules
+
+

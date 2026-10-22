@@ -1,57 +1,45 @@
-config_version = 14
+config_version = 15
 
 [bar]
 order = [ "default" ]
 
     [bar.default]
-    background_opacity = 0.74999998323619366
+    background_opacity = 0.84999998100101948
     border = "primary"
-    capsule = true
     capsule_fill = "on_secondary"
-    capsule_opacity = 0.4999999888241291
-    capsule_thickness = 0.74999998696148396
+    capsule_opacity = 0.0
+    capsule_padding = 3.0
     color = "primary"
-    end = [
-        "tray",
-        "group:g1",
-        "notes",
-        "clipboard",
-        "recorder",
-        "notifications",
-        "group:g2",
-        "status",
-        "session",
-        "summary"
-    ]
+    end = [ "tray", "group:g2", "notes", "clipboard", "notifications", "group:g1", "status", "session", "summary" ]
     icon_color = "primary"
     margin_edge = 0
     margin_ends = 0
-    padding = 5
+    padding = 8
     radius = 0
     start = [ "launcher", "workspaces", "media" ]
-    widget_spacing = 4
+    widget_spacing = 8
 
         [[bar.default.capsule_group]]
         accordion = false
         accordion_direction = "end"
-        border = ""
+        border_width = 1.0
         enabled = true
         fill = "on_secondary"
         id = "g1"
-        members = [ "sysmon", "ram" ]
-        opacity = 0.5
-        padding = 6.0
+        members = [ "input_volume", "volume", "brightness" ]
+        opacity = 0.0
+        padding = 3.0
 
         [[bar.default.capsule_group]]
         accordion = false
         accordion_direction = "end"
-        border = ""
+        border_width = 1.0
         enabled = true
         fill = "on_secondary"
         id = "g2"
-        members = [ "input_volume", "volume", "brightness" ]
-        opacity = 0.5
-        padding = 6.0
+        members = [ "sysmon", "ram" ]
+        opacity = 0.0
+        padding = 3.0
 
 [brightness]
 enable_ddcutil = true
@@ -147,6 +135,7 @@ address = "Colonia del Sacramento, UY"
 enabled = true
 schema_version = 1
 widget_order = [
+    "lockscreen-login-box@WL-1",
     "lockscreen-login-box@HDMI-A-2",
     "lockscreen-login-box@HDMI-A-1",
     "lockscreen-widget-0000000000000001",
@@ -176,6 +165,7 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -198,6 +188,35 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@WL-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 468.0
+    cy = 858.0
+    output = "WL-1"
+    placement_height = 1040.0
+    placement_width = 936.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@WL-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -271,13 +290,7 @@ feather = 27
 threshold = 19
 
 [plugins]
-enabled = [
-    "noctalia/screen_recorder",
-    "noctalia/wallhaven",
-    "noctalia/notes",
-    "icefish/phone-connect",
-    "icefish/phone-operate"
-]
+enabled = [ "noctalia/screen_recorder", "noctalia/wallhaven", "noctalia/notes" ]
 
     [[plugins.source]]
     auto_update = true
@@ -303,7 +316,6 @@ screen_time_enabled = true
 settings_show_advanced = true
 show_location = false
 telemetry_enabled = true
-umbriel_overview_type_to_launch_enabled = true
 
     [shell.panel]
     clipboard_placement = "floating"
@@ -371,9 +383,11 @@ ram_pct_activity_threshold = 90
 ram_pct_critical_threshold = 100
 
 [theme]
-community_palette = "m3-content"
+builtin = "Catppuccin"
+community_palette = "Aura"
 custom_palette = "black-swan-honkai-star-rail-full-4193473-rb"
-source = "wallpaper"
+pure_black_dark = true
+source = "custom"
 wallpaper_scheme = "m3-rainbow"
 
     [theme.templates]
@@ -417,7 +431,6 @@ anchor = true
 format = " {:%H:%M %a, %b %d} "
 
 [widget.input_volume]
-capsule = true
 capsule_border = "primary"
 
 [widget.launcher]
@@ -435,16 +448,14 @@ hide_when_no_media = true
 capsule = true
 
 [widget.notes]
+enabled = false
 type = "noctalia/notes:notes"
 
 [widget.ram]
 capsule = true
 show_label = false
-show_value = false
 stat = "ram_pct"
-
-[widget.recorder]
-type = "noctalia/screen_recorder:recorder"
+visualization = "none"
 
 [widget.status]
 type = "icefish/phone-operate:status"
@@ -454,13 +465,14 @@ type = "gustav0ar/drive-health:summary"
 
 [widget.sysmon]
 capsule = true
-show_value = false
+visualization = "none"
 
 [widget.taskbar]
 group_by_workspace = true
 group_single_icon_per_app = true
 
 [widget.tray]
+drawer = true
 pinned = [ "cachy-update" ]
 
 [widget.volume]

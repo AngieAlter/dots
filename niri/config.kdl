@@ -7,7 +7,6 @@ include "./cfg/layout.kdl"
 include "./cfg/rules.kdl"
 include "./cfg/misc.kdl"
 
-include "./noctalia.kdl"
 
 workspace "main" {
 	open-on-output "HDMI-A-2"
@@ -24,3 +23,6 @@ workspace "1-2" {
 workspace "2-2" {
 	open-on-output "HDMI-A-1"
 }
+
+
+include "noctalia.kdl"
