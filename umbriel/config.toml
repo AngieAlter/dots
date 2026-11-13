@@ -3,7 +3,9 @@
 # Changes apply on save. See docs/ for the full reference.
 
 [include]
-files = []
+files = ["/media/ssdlinux1/Github/umbriel-shaders/thin-ice-breaker/effect.toml",
+          "/media/ssdlinux1/Github/umbriel-shaders/sky-manipulation/effect.toml",
+          "/media/ssdlinux1/Github/umbriel-shaders/sky-manipulation-overview/effect.toml"]
 
 [include.optional]
 files = ["noctalia.toml"]
@@ -32,52 +34,45 @@ SDL_VIDEODRIVER = "wayland"
 [workspaces]
 back_and_forth = true
 
-# Colors ---------------------------------------------------------------------
-
-[colors]
-#background = "#141419F0"
-#text_primary = "#E8E8EAFF"
-#text_muted = "#8A8A92FF"
-#accent_primary = "#7AA3FFFF"
-#accent_secondary = "#F5C96BFF"
-#warning = "#F5C96BFF"
-#error = "#FF6B6BFF"
-#shadow = "#0000008C"
-
 # Appearance -----------------------------------------------------------------
 
 [appearance]
 prefer_no_csd = true
-border_width = 0 # 2              # 0-100
+border_width = 2 # 2              # 0-100
 outer_border_width = 0         # 0-100
 corner_radius = 0 # 6              # 0-500
-#border_focused = "#880808"
-#border_unfocused = "#292933FF"
-#scratchpad_border_focused = "#E5C07BFF"
-#scratchpad_border_unfocused = "#5C4A2AFF"
-#outer_border_color = "#1A1A1FFF"
-#insert_hint_color = "#7FC8FF80"
-#backdrop_color = "#000000FF"
-#animation_ms = 250             # 1-10000
-
 
 [animation]
 enabled = true
 duration_ms = 250
 curve = "easeout"
 
+#[animation.windows_in]
+#enabled = true
+#duration_ms = 250
+#curve = "easeout"
+#style = "fade"       # "popin", "zoom", "slide", "fade", or "none"
+#scale = 0.85          # 0.1-1.0, used by "popin"
+
 [animation.windows_in]
 enabled = true
-duration_ms = 250
+effect = "sky-manipulation"
+duration_ms = 650
 curve = "easeout"
-style = "fade"       # "popin", "zoom", "slide", "fade", or "none"
-scale = 0.85          # 0.1-1.0, used by "popin"
 
 [animation.windows_out]
 enabled = true
-duration_ms = 150
-curve = "easeout"
-style = "fade"        # "fade" or "slide"
+effect = "sky-manipulation"
+duration_ms = 650
+curve = "ease"
+
+
+
+#[animation.windows_out]
+#enabled = true
+#duration_ms = 150
+#curve = "easeout"
+#style = "fade"        # "fade" or "slide"
 
 [animation.windows_move]
 enabled = true
@@ -89,22 +84,17 @@ enabled = true
 duration_ms = 250
 curve = "easeout"
 
-#[animation.workspaces]
-#enabled = true
-#style = "reveal"
-#effect = "ghostly-tear"
-#duration_ms = 600
-#curve = "linear"
-
 [animation.overview]
 enabled = true
 duration_ms = 250
 curve = "easeout"
 
+
 [animation.scratchpad]
-enabled = false
-duration_ms = 250
-curve = "easeout"
+enabled = true
+duration_ms = 650
+effect = "sky-manipulation-overview"
+curve = "ease"
 dim = 0.5             # 0.0-1.0
 blur = false          # requires appearance.blur.enabled
 
@@ -126,13 +116,13 @@ curve = "easeout"
 
 [appearance.blur]
 enabled = true
-optimized = false
-passes = 1                     # 0-8
+optimized = true
+passes = 2                     # 0-8
 radius = 1                     # 0-100
 noise = 0.02                   # 0.0-1.0
-#brightness = 0.9               # 0.0-2.0
-#contrast = 0.9                 # 0.0-2.0
-#saturation = 1.1               # 0.0-2.0
+brightness = 0.9               # 0.0-2.0
+contrast = 0.9                 # 0.0-2.0
+saturation = 1.1               # 0.0-2.0
 
 [appearance.shadow]
 enabled = true
@@ -145,6 +135,9 @@ offset_y = 2
 [overview]
 zoom = 0.5 # 0.1-0.75
 workspace_wallpaper = false
+scroll_factor_horizontal = 1.0
+scroll_factor_vertical = 1.0 
+background_blur = true
 
 [colors.overview]
 background_tint = "#10101430"
@@ -154,11 +147,11 @@ workspace_background = "#00000044" # set alpha to FF for an opaque background
 
 [layout]
 mode = "scrolling"             # "scrolling" or "dwindle"
-gap = 3                        # 0-500
+gap = 0                        # 0-500
 extent_presets = [0.333, 0.5, 0.667] # shared by scrolling and dwindle
 
 [layout.scrolling]
-default_extent_fraction = 0.49   # 0.1-1.0
+default_extent_fraction = 0.5   # 0.1-1.0
 center_underfull_strip = true  # center the strip whenever it is narrower than the viewport
 center_focused = "never"
 
@@ -184,8 +177,8 @@ workspaces = 9
 direct_scanout = true
 
 [output."Xiaomi Corporation P24FBA-RAGL 5438700083084"]
-mode = "1920x1080@144"
-position = [-1920, 0]
+mode = "1920x1080@100"
+position = [1920, 0]
 scale = 1
 #workspace_axis = "horizontal"
 
@@ -199,10 +192,6 @@ options = ""                   # XKB options, e.g. "grp:alt_shift_toggle"
 repeat_rate = 25               # 0-1000 Hz
 repeat_delay = 600             # 0-10000 ms
 
-[input.touchpad]
-# tap = true
-# natural_scroll = true
-
 [input.mouse]
 scroll_wheel_step = 60         # 1-1000
 accel_profile = "flat"
@@ -210,9 +199,10 @@ accel_profile = "flat"
 [input.cursor]
 theme = "breeze_cursors"
 size = 24                      # 1-512
+follows_focus = true
 
 [input.focus]
-follows_mouse = true
+follows_mouse = "sloppy"
 # follows_mouse_max_scroll = 0.5
 
 [input.tablet]
@@ -225,37 +215,37 @@ map_to_output = "HDMI-A-2"
 "Mod+M" = "session-quit"
 
 # Misc
-"F19" = "spawn:noctalia msg mic-mute"
-"Mod+Alt+N" = "spawn:pkill noctalia && sleep 1 && noctalia --daemon"
+"F19" = "spawn noctalia msg mic-mute"
+"Mod+Alt+N" = "spawn pkill noctalia && sleep 1 && noctalia --daemon"
 
-"Alt+Tab" = "spawn:noctalia msg window-switcher"
+"Alt+Tab" = "spawn noctalia msg window-switcher"
 
 # Apps
-"Mod+Q" = "spawn:kitty"
-"Mod+E" = "spawn:dolphin"
-"Mod+B" = "spawn:zen-browser"
-"Mod+Shift+B" = "spawn:zen-browser --private-window"
-"Mod+X" = "spawn:obsidian"
+"Mod+Q" = "spawn kitty"
+"Mod+E" = "spawn dolphin"
+"Mod+B" = "spawn zen-browser"
+"Mod+Shift+B" = "spawn zen-browser --private-window"
+"Mod+X" = "spawn obsidian"
 
 # Noctalia
 
-"Mod+L" = "spawn:noctalia msg lock-screen"
-"Mod+Space" = "spawn:noctalia msg panel-toggle launcher"
-"Mod+S" = "spawn:noctalia msg panel-toggle control-center"
-"Mod+Shift+Q" = "spawn:noctalia msg panel-toggle session"
+"Mod+L" = "spawn noctalia msg lock-screen"
+"Mod+Space" = "spawn noctalia msg panel-toggle launcher"
+"Mod+S" = "spawn noctalia msg panel-toggle control-center"
+"Mod+Shift+Q" = "spawn noctalia msg panel-toggle session"
 
-"Mod+Shift+1" = "spawn:noctalia msg screenshot-region"
-"Mod+Shift+2" = "spawn:noctalia msg screenshot-fullscreen"
+"Mod+Shift+1" = "spawn noctalia msg screenshot-region"
+"Mod+Shift+2" = "spawn noctalia msg screenshot-fullscreen"
 
 
 # Media Control
-"XF86AudioRaiseVolume" = "spawn:noctalia msg volume-up 5%"
-"XF86AudioLowerVolume" = "spawn:noctalia msg volume-down 5%"
-"XF86AudioMute" = "spawn:noctalia msg volume-mute"
+"XF86AudioRaiseVolume" = "spawn noctalia msg volume-up 5%"
+"XF86AudioLowerVolume" = "spawn noctalia msg volume-down 5%"
+"XF86AudioMute" = "spawn noctalia msg volume-mute"
 
-"XF86AudioPlay" = "spawn:noctalia msg media toggle"
-"XF86AudioNext" = "spawn:noctalia msg media next"
-"XF86AudioPrev" = "spawn:noctalia msg media previous"
+"XF86AudioPlay" = "spawn noctalia msg media toggle"
+"XF86AudioNext" = "spawn noctalia msg media next"
+"XF86AudioPrev" = "spawn noctalia msg media previous"
 
 # Window Control
 
@@ -264,6 +254,7 @@ map_to_output = "HDMI-A-2"
 "Mod+C" = "window-close"
 
 "Mod+Z" = "window-toggle-maximize"
+"Mod+Alt+Z" = "window-toggle-maximize-to-edges"
 "Mod+F" = "window-toggle-fullscreen"
 
 # Window movement and view
@@ -299,33 +290,33 @@ map_to_output = "HDMI-A-2"
 "Mod+Ctrl+Shift+WheelDown" = "window-move-to-workspace-next"
 "Mod+Ctrl+Shift+WheelUp" = "window-move-to-workspace-previous"
 
-"Mod+Alt+1" = "workspace-set-layout:scrolling"
-"Mod+Alt+2" = "workspace-set-layout:dwindle"
+"Mod+Alt+1" = "workspace-set-layout scrolling"
+"Mod+Alt+2" = "workspace-set-layout dwindle"
 
-"Mod+1" = "workspace-switch:1"
-"Mod+2" = "workspace-switch:2"
-"Mod+3" = "workspace-switch:3"
-"Mod+4" = "workspace-switch:4"
-"Mod+5" = "workspace-switch:5"
-"Mod+6" = "workspace-switch:6"
-"Mod+7" = "workspace-switch:7"
-"Mod+8" = "workspace-switch:8"
-"Mod+9" = "workspace-switch:9"
+"Mod+1" = "workspace-switch 1"
+"Mod+2" = "workspace-switch 2"
+"Mod+3" = "workspace-switch 3"
+"Mod+4" = "workspace-switch 4"
+"Mod+5" = "workspace-switch 5"
+"Mod+6" = "workspace-switch 6"
+"Mod+7" = "workspace-switch 7"
+"Mod+8" = "workspace-switch 8"
+"Mod+9" = "workspace-switch 9"
 
-"Mod+Ctrl+1" = "window-move-to-workspace:1"
-"Mod+Ctrl+2" = 'window-move-to-workspace:2'
-"Mod+Ctrl+3" = 'window-move-to-workspace:3'
-"Mod+Ctrl+4" = 'window-move-to-workspace:4'
-"Mod+Ctrl+5" = 'window-move-to-workspace:5'
-"Mod+Ctrl+6" = 'window-move-to-workspace:6'
-"Mod+Ctrl+7" = 'window-move-to-workspace:7'
-"Mod+Ctrl+8" = 'window-move-to-workspace:8'
-"Mod+Ctrl+9" = 'window-move-to-workspace:9'
+"Mod+Ctrl+1" = "window-move-to-workspace 1"
+"Mod+Ctrl+2" = 'window-move-to-workspace 2'
+"Mod+Ctrl+3" = 'window-move-to-workspace 3'
+"Mod+Ctrl+4" = 'window-move-to-workspace 4'
+"Mod+Ctrl+5" = 'window-move-to-workspace 5'
+"Mod+Ctrl+6" = 'window-move-to-workspace 6'
+"Mod+Ctrl+7" = 'window-move-to-workspace 7'
+"Mod+Ctrl+8" = 'window-move-to-workspace 8'
+"Mod+Ctrl+9" = 'window-move-to-workspace 9'
 
 
 
 "Mod+Shift+Space" = "window-move-to-scratchpad"
-"Ctrl+Tab" = "scratchpad-toggle"
+"Ctrl+Space" = "scratchpad-toggle"
 "Mod+Ctrl+Space" = "window-restore-from-scratchpad"
 
 # Window and layer rules (see docs/rules.md) --------------------------------
@@ -380,6 +371,8 @@ default_workspace = 1
 match.app_id = "^(steam_proton|steam_app.*|overwatch|overwatch\\.exe)$"
 default_fullscreen = true
 default_workspace = 3
+focus_on_activate =  true
+default_focused = true
 
 # steam floating fix
 [[window_rule]]
@@ -416,8 +409,14 @@ focus_on_activate = false
 default_pinned = true
 
 [[window_rule]]
-match.app_id = "^(Emulator|zenity|Servers|xdg-desktop-portal|xdg-desktop-portal-gtk|qalculate-gtk|org\\.pulseaudio\\.pavucontrol)$"
+match.app_id = "^(Emulator|zenity|xdg-desktop-portal|xdg-desktop-portal-gtk|qalculate-gtk|org\\.pulseaudio\\.pavucontrol)$"
 default_floating = true
+
+[[window_rule]]
+match.title = "^(Servers)"
+default_floating = true
+default_floating_size_px = {width = 640, height = 800}
+default_pinned = true
 
 # Float common dialogs by title
 [[window_rule]]
@@ -435,7 +434,7 @@ focus_on_activate = true
 opacity = 1
 
 [[window_rule]]
-match.app_id = "dolphin|sonora|discord|puppyclicker*"
+match.app_id = "dolphin|sonora|puppyclicker*"
 opacity = 0.98
 
 # Layer rules (see docs/rules.md#layer-rules) --------------------------------
@@ -443,6 +442,7 @@ opacity = 0.98
 [[layer_rule]]
 match.namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
 blur = true
+blur_optimized = true
 blur_ignore_alpha = 0.5
 blur_popups = true
 

@@ -1,4 +1,4 @@
-config_version = 15
+config_version = 20
 
 [bar]
 order = [ "default" ]
@@ -15,6 +15,7 @@ order = [ "default" ]
     margin_edge = 0
     margin_ends = 0
     padding = 8
+    panel_overlap = 0
     radius = 0
     start = [ "launcher", "workspaces", "media" ]
     widget_spacing = 8
@@ -99,7 +100,17 @@ concave_edge_corners = false
 enabled = true
 icon_size = 30
 launcher_position = "start"
-pinned = [ "spotify", "discord", "steam", "zen", "Krita", "obsidian", "org.audacityteam.Audacity", "blender", "sonora" ]
+pinned = [
+    "dev.noctalia.luciole",
+    "discord",
+    "steam",
+    "zen",
+    "Krita",
+    "sonora",
+    "obsidian",
+    "org.audacityteam.Audacity",
+    "blender"
+]
 reserve_space = false
 show_dots = true
 smart_auto_hide = true
@@ -165,6 +176,7 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_media_controls = true
         show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
@@ -188,6 +200,7 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_media_controls = true
         show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
@@ -196,16 +209,16 @@ widget_order = [
     [lockscreen_widgets.widget."lockscreen-login-box@WL-1"]
     box_height = 196.0
     box_width = 810.0
-    cx = 468.0
+    cx = 957.00006103515625
     cy = 858.0
     output = "WL-1"
     placement_height = 1040.0
-    placement_width = 936.0
+    placement_width = 1914.0
     rotation = 0.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@WL-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -216,6 +229,7 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_media_controls = true
         show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
@@ -290,7 +304,7 @@ feather = 27
 threshold = 19
 
 [plugins]
-enabled = [ "noctalia/screen_recorder", "noctalia/wallhaven", "noctalia/notes" ]
+enabled = [ "noctalia/screen_recorder", "noctalia/wallhaven", "noctalia/notes", "thaer99ob/default-apps" ]
 
     [[plugins.source]]
     auto_update = true
@@ -319,7 +333,6 @@ telemetry_enabled = true
 
     [shell.panel]
     clipboard_placement = "floating"
-    control_center_placement = "floating"
     open_near_click_clipboard = true
     open_near_click_control_center = true
     session_placement = "floating"
@@ -330,7 +343,6 @@ telemetry_enabled = true
     annotate = true
     confirm_region = true
     directory = "/home/meiyu/Pictures"
-    freeze_screen = false
     pipe_to_command = true
     skip_annotate_on_copy_save = true
 
@@ -391,8 +403,8 @@ source = "custom"
 wallpaper_scheme = "m3-rainbow"
 
     [theme.templates]
-    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "hyprland", "kcolorscheme", "kitty", "niri", "qt", "starship", "umbriel" ]
-    community_ids = [ "sonora", "spicetify", "zen-browser", "discord", "neovim", "obsidian", "prismlauncher", "yazi" ]
+    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "hyprland", "kcolorscheme", "kitty", "niri", "qt", "umbriel" ]
+    community_ids = [ "claude-code", "sonora", "spicetify", "zen-browser", "discord", "neovim", "obsidian", "prismlauncher", "yazi" ]
 
 [wallpaper]
 directory = "/home/meiyu/Pictures/Wallpapers"
@@ -435,6 +447,7 @@ capsule_border = "primary"
 
 [widget.launcher]
 color = "on_surface"
+enabled = false
 
 [widget.media]
 artist_first = true
@@ -479,6 +492,9 @@ pinned = [ "cachy-update" ]
 capsule = true
 
 [widget.workspaces]
+active_pill_size = 4.7000000000000002
 font_weight = 900
 labels_only_when_occupied = true
 occupied_color = "tertiary"
+pill_scale = 0.90000000000000002
+show_labels = false
